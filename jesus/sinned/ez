@@ -1,0 +1,18 @@
+function Notify(title, text, time)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = title;
+        Text = text;
+        Duration = time;
+    })
+end
+
+redeemCode(code)
+    Notify(' | Redeeming...', 'Redeeming Code "' .. code .. '"', 3)
+    local MainEvent = game.ReplicatedStorage:WaitForChild("MainEvent")
+    MainEvent:FireServer('EnterPromoCode', code)
+end
+
+for _, code in ipairs(getgenv().Codes) do
+    redeemCode(code)
+    task.wait(1)
+end
